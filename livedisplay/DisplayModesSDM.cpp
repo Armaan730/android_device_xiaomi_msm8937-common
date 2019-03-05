@@ -49,7 +49,7 @@ DisplayModesSDM::DisplayModesSDM(const std::shared_ptr<SDMController>& controlle
     }
 }
 
-bool DisplayModesSDM::isSupported() {
+int DisplayModesSDM::isSupported() {
     int32_t count = 0;
     uint32_t flags = 0;
     static int supported = -1;
@@ -64,7 +64,6 @@ bool DisplayModesSDM::isSupported() {
     }
 
     if (mController->get_num_display_modes(mCookie, 0, 0, &count, &flags) != 0) {
-        supported = 0;
         goto out;
     }
 

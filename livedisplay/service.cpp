@@ -21,6 +21,7 @@
 #include <android-base/logging.h>
 #include <binder/ProcessState.h>
 #include <hidl/HidlTransportSupport.h>
+#include <unistd.h>
 
 #include "AdaptiveBacklight.h"
 #include "ColorEnhancement.h"
@@ -109,8 +110,9 @@ int main() {
         goto shutdown;
     }
 
-    if (!dms->isSupported() && !pa->isSupported()) {
+    if (dms->isSupported() < 0 || pa->isSupported() < 0) {
         // SDM backend isn't ready yet, so restart and try again
+        LOG(ERROR) << "SDM isn't ready";
         goto shutdown;
     }
 

@@ -69,7 +69,7 @@ PictureAdjustment::PictureAdjustment(const std::shared_ptr<SDMController>& contr
     memset(&mDefaultPictureAdjustment, 0, sizeof(HSIC));
 }
 
-bool PictureAdjustment::isSupported() {
+int PictureAdjustment::isSupported() {
     hsic_ranges r;
     static int supported = -1;
 
@@ -83,7 +83,6 @@ bool PictureAdjustment::isSupported() {
     }
 
     if (mController->get_global_pa_range(mCookie, 0, &r) != 0) {
-        supported = 0;
         goto out;
     }
 

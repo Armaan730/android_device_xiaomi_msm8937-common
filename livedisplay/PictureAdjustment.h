@@ -34,7 +34,13 @@ class PictureAdjustment : public IPictureAdjustment {
    public:
     PictureAdjustment(const std::shared_ptr<SDMController>& controller, uint64_t cookie);
 
-    bool isSupported();
+    /*
+     * Return value:
+     *   negative - controller returned failure
+     *   0 - feature unsupported
+     *   1 - feature supported
+     */
+    int isSupported();
 
     // Methods from ::vendor::lineage::livedisplay::V2_0::IPictureAdjustment follow.
     Return<void> getHueRange(getHueRange_cb _hidl_cb) override;
